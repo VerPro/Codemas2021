@@ -33,3 +33,14 @@ let board=[
 
 let wall = new Image()
 wall.src = 'images/zed.png'
+
+function generateBoard() {
+for (let y= 0; y <board.length; y++){
+    for (let x = 0; x <board[y].length; x++){
+        if(board[y][x]===1){
+            ctx.drawImage(wall, x*blockSize, y*blockSize, blockSize, blockSize)
+        }
+    }
+}}
+
+window.addEventListener('load', generateBoard)

@@ -54,31 +54,34 @@ let player = {
 let hero = new Image
 hero.src = 'images/pernicek_dolu.png'
 
+function canMove(x,y){
+    return (y >= 0 && y < board.length && x >= 0 && x < board[y].length && board[y][x] != 1)
+}
 
 function movement(){
     //arrow right
-    if(keys['ArrowRight']){
+    if(keys['ArrowRight'] && canMove(player.x +1, player.y)){
         hero.src='images/pernicek_doprava.png'
         player.x++
         
     }
 
     //arrow left
-    if(keys['ArrowLeft']){
+    if(keys['ArrowLeft']&& canMove(player.x -1, player.y)){
         hero.src="images/pernicek_doleva.png"
         player.x--
         
     }
 
     //arrow up
-    if(keys['ArrowUp']){
+    if(keys['ArrowUp']&& canMove(player.x, player.y -1)){
         hero.src= 'images/pernicek_nahoru.png'
         player.y--
         
     }
 
     //arrow down
-    if(keys['ArrowDown']){
+    if(keys['ArrowDown']&& canMove(player.x, player.y +1)){
         hero.src="images/pernicek_dolu.png"
         player.y++
         
@@ -90,6 +93,10 @@ function draw(){
     movement()
     ctx.drawImage(hero, player.x * blockSize, player.y*blockSize, blockSize, blockSize)
 }
+
+
+
+
 
 window.addEventListener('load', draw )
 document.body.addEventListener("keydown", function(e) {

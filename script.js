@@ -267,9 +267,11 @@ function startGame() {
 }
 
 function endGame(type) {
+  console.log('endGame called');
   if (type === 'win') {
     game.videoElement.src = 'animations/codemas_vyhra.mp4';
-  } else if (type === 'loss') {
+  }
+  if (type === 'loss') {
     game.videoElement.src = 'animations/codemas_prohra.mp4';
   }
   canvas.style.display = 'none';
@@ -287,4 +289,4 @@ document.body.addEventListener('keyup', function (e) {
   draw();
 });
 
-game.startButton.addEventListener('click', startGame());
+game.startButton.addEventListener('click', startGame);

@@ -63,9 +63,16 @@ ponozky.src = "images/ponozky.png"
 let rukavice = new Image()
 rukavice.src  = 'images/rukavice.png'
 
+//all the important element of the game
 let game = {
+    timeElement: document.getElementById("time"),
     scoreElement: document.getElementById("score"),
-    score: 0
+    startElement: document.getElementById('start'),
+    startButton: document.getElementById('btn-start'),
+    endElement: document.getElementById('end'),
+    videoElement: document.querySelector('#end video'),
+    score: 0,
+    time: 0,
 }
 
 function generateBoard() {
@@ -131,11 +138,6 @@ function createItems() {
     })
 }
 
-function startGame () {
-    createItems()
-    draw()
-}
-
 //position of the player
 let player = {
     x: 8,
@@ -175,11 +177,48 @@ function movement(){
         
     }
 }
-
 function increaseScore() {
     game.score++
     game.scoreElement.textContent = `${game.score}/7`
 }
+
+function timer() {
+    function startTimer(duration, display) {
+        let timer = duration,
+            minutes,
+            seconds
+
+            let time = setInterval(function() {
+            minutes = parseInt(timer / 60, 10)
+            seconds = parseInt(timer % 60, 10)
+
+            minutes = minutes < 10 ? "0" + minutes : minutes
+            seconds = seconds < 10 ? "0" + seconds : seconds
+
+            //winning condition
+            if(game.score === 7){
+                endGame("win")
+                clearInterval(time)
+            }
+            //loosing condition
+            if(game.time === 0){
+                endGame("loss")
+                clearInterval(time)
+            }
+            //
+
+
+            display.innerText = minutes + ":" + seconds
+
+            if (--timer < 0) {
+                timer = duration
+            }
+        }, 1000)
+    }
+    startTimer(game.time, game.timeElement)
+}
+
+
 function draw(){
     ctx.clearRect(player.x * blockSize, player.y * blockSize, blockSize, blockSize)
     generateBoard()
@@ -190,7 +229,6 @@ function draw(){
 
 function collect() {
     for (let i = 0; i < items.length; i++) {
-        console.log(player.x + " " + items[i].x);
         if (player.x == items[i].x && player.y == items[i].y) {
         items.splice(i, 1)
         increaseScore()
@@ -198,8 +236,30 @@ function collect() {
     }
 }
 
+function intro (){
+    game.startElement.style.display = "block"
+}
 
-window.addEventListener('load', startGame )
+
+function startGame () {
+    game.startElement.style.display = "none"
+    game.time = 60
+    createItems()
+    draw()
+    timer()
+}
+
+function endGame (type){
+    if (type === "win"){
+        game.videoElement.src = "animations/codemas_vyhra.mp4"
+    }else if(type === "loss"){
+        game.videoElement.src = "animations/codemas_prohra.mp4"
+    }
+    canvas.style.display = "none"
+    game.endElement.style.display = "block"
+}
+
+window.addEventListener('load', intro )
 document.body.addEventListener("keydown", function(e) {
     keys[e.code] = true
     draw()
@@ -209,4 +269,6 @@ document.body.addEventListener("keyup", function(e) {
     keys[e.code] = false 
     draw()
 })
+
+game.startButton.addEventListener('click', startGame())
 

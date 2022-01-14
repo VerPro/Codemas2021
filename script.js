@@ -76,7 +76,6 @@ let game = {
 };
 
 function generateBoard() {
-  console.log('generateBoard called');
   for (let y = 0; y < board.length; y++) {
     for (let x = 0; x < board[y].length; x++) {
       if (board[y][x] === 1) {
@@ -96,7 +95,6 @@ function generateBoard() {
 }
 
 function createItems() {
-  console.log('createItems called');
   items.push({
     x: 1,
     y: 1,
@@ -187,9 +185,7 @@ function increaseScore() {
 }
 
 function timer() {
-  console.log('timer called');
   function startTimer(duration, display) {
-    console.log('startTimer called');
     let timer = duration,
       minutes,
       seconds;
@@ -207,7 +203,7 @@ function timer() {
         clearInterval(time);
       }
       //loosing condition
-      if (game.time === 0) {
+      if (timer === 0) {
         endGame('loss');
         clearInterval(time);
       }
@@ -224,7 +220,6 @@ function timer() {
 }
 
 function draw() {
-  console.log('draw called');
   ctx.clearRect(
     player.x * blockSize,
     player.y * blockSize,
@@ -253,12 +248,10 @@ function collect() {
 }
 
 function intro() {
-  console.log('intro called');
   game.startElement.style.display = 'block';
 }
 
 function startGame() {
-  console.log('startGame called');
   game.startElement.style.display = 'none';
   game.time = 60;
   createItems();
@@ -267,11 +260,11 @@ function startGame() {
 }
 
 function endGame(type) {
-  console.log('endGame called');
   if (type === 'win') {
     game.videoElement.src = 'animations/codemas_vyhra.mp4';
   }
   if (type === 'loss') {
+    console.log('loosing animation');
     game.videoElement.src = 'animations/codemas_prohra.mp4';
   }
   canvas.style.display = 'none';

@@ -167,7 +167,7 @@ function canMove(x, y) {
   );
 }
 
-let currentHeroImage = hero.up;
+let currentHeroImage = hero.down;
 function movement() {
   //arrow right
   if (keys['ArrowRight'] && canMove(player.x + 1, player.y)) {

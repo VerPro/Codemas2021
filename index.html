@@ -14,9 +14,9 @@
 
   <body>
     <header id="header">
-      <div>
+      <div id="scorebox">
         <img src="images/darek1.png" alt="Dárek" />
-        <span id="score">0/7</span>
+        <p id="score">0/7</p>
       </div>
 
       <div id="time">00:00</div>
@@ -31,7 +31,7 @@
         <source src="animations/codemas_prohra.mp4" type="video/mp4" />
         Your browser does not support HTML video.
       </video>
-      <button onclick="location.reload()">Hrát znovu</button>
+      <button id="reload" onclick="location.reload()">Hrát znovu</button>
     </div>
 
     <div id="start">
@@ -41,6 +41,25 @@
         všechny předměty v bludišti, než ti dojde čas.
       </p>
       <button id="btn-start">Zahájit hru</button>
+    </div>
+
+    <div id="arrows">
+      <div id="firstRow">
+        <button id="ArrowUp">
+          <img src="images/sipka_vpravo.png" alt="" />
+        </button>
+      </div>
+      <div id="secondRow">
+        <button id="ArrowLeft">
+          <img src="images/sipka_vpravo.png" alt="" />
+        </button>
+        <button id="ArrowDown">
+          <img src="images/sipka_vpravo.png" alt="" />
+        </button>
+        <button id="ArrowRight">
+          <img src="images/sipka_vpravo.png" alt="" />
+        </button>
+      </div>
     </div>
 
     <script src="script.js"></script>

@@ -38,8 +38,16 @@ let wall = new Image();
 wall.src = 'images/zed.png';
 
 //image of the player
-let hero = new Image();
-hero.src = 'images/pernicek_dolu.png';
+let hero = {
+  up: new Image(),
+  down: new Image(),
+  left: new Image(),
+  right: new Image(),
+};
+hero.up.src = 'images/pernicek_nahoru.png';
+hero.down.src = 'images/pernicek_dolu.png';
+hero.left.src = 'images/pernicek_doleva.png';
+hero.right.src = 'images/pernicek_doprava.png';
 
 //images of the collectible objects
 let darek2 = new Image();
@@ -73,6 +81,11 @@ let game = {
   videoElement: document.querySelector('#end video'),
   score: 0,
   time: 0,
+};
+
+//touchscreen keyboard
+let touchArrows = {
+  keyboard: document.getElementById('arrows'),
 };
 
 function generateBoard() {
@@ -154,28 +167,29 @@ function canMove(x, y) {
   );
 }
 
+let currentHeroImage = hero.up;
 function movement() {
   //arrow right
   if (keys['ArrowRight'] && canMove(player.x + 1, player.y)) {
-    hero.src = 'images/pernicek_doprava.png';
+    currentHeroImage = hero.right;
     player.x++;
   }
 
   //arrow left
   if (keys['ArrowLeft'] && canMove(player.x - 1, player.y)) {
-    hero.src = 'images/pernicek_doleva.png';
+    currentHeroImage = hero.left;
     player.x--;
   }
 
   //arrow up
   if (keys['ArrowUp'] && canMove(player.x, player.y - 1)) {
-    hero.src = 'images/pernicek_nahoru.png';
+    currentHeroImage = hero.up;
     player.y--;
   }
 
   //arrow down
   if (keys['ArrowDown'] && canMove(player.x, player.y + 1)) {
-    hero.src = 'images/pernicek_dolu.png';
+    currentHeroImage = hero.down;
     player.y++;
   }
 }
@@ -201,11 +215,13 @@ function timer() {
       if (game.score === 7) {
         endGame('win');
         clearInterval(time);
+        touchArrows.keyboard.style.display = 'none';
       }
       //loosing condition
       if (timer === 0) {
         endGame('loss');
         clearInterval(time);
+        touchArrows.keyboard.style.display = 'none';
       }
       //
 
@@ -230,7 +246,7 @@ function draw() {
   movement();
   collect();
   ctx.drawImage(
-    hero,
+    currentHeroImage,
     player.x * blockSize,
     player.y * blockSize,
     blockSize,
@@ -264,7 +280,6 @@ function endGame(type) {
     game.videoElement.src = 'animations/codemas_vyhra.mp4';
   }
   if (type === 'loss') {
-    console.log('loosing animation');
     game.videoElement.src = 'animations/codemas_prohra.mp4';
   }
   canvas.style.display = 'none';
@@ -283,3 +298,25 @@ document.body.addEventListener('keyup', function (e) {
 });
 
 game.startButton.addEventListener('click', startGame);
+
+//touchscreen movement
+
+game.startButton.addEventListener('touchstart', () => {
+  startGame;
+  touchArrows.keyboard.style.display = 'flex';
+});
+
+//touchArrows.right.addEventListener('touchstart', touchMovement());
+document.querySelectorAll('#arrows button').forEach((arrowTouchKey) => {
+  arrowTouchKey.addEventListener('touchstart', () => {
+    keys[arrowTouchKey.id] = true;
+    draw();
+  });
+});
+
+document.querySelectorAll('#arrows button').forEach((arrowTouchKey) => {
+  arrowTouchKey.addEventListener('touchend', () => {
+    keys[arrowTouchKey.id] = false;
+    draw();
+  });
+});

@@ -3,32 +3,29 @@ html {
 }
 
 #canvas {
-  border: 1px solid black;
   background: url('images/plan.png');
+  border: none;
+  max-width: 100vw;
 }
 
 #game {
-  text-align: center;
   background-color: rgba(0, 0, 0, 0);
-  margin-top: 30px;
-}
-
-#canvas {
-  border: none;
+  text-align: center;
 }
 
 body {
   padding: 5px;
+  margin: 0;
   color: white;
   font-family: 'Press Start 2P', cursive;
+  width: 100%;
 }
 
 header {
+  margin: 20px auto 10px auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 900px;
-  margin: 20px auto 10px auto;
 }
 
 header img {
@@ -41,18 +38,24 @@ header img {
   font-family: 'Press Start 2P', cursive;
   font-size: 20px;
   color: #0d4c7f;
+  margin: 0 15px 0 15px;
+}
+
+#scorebox {
+  display: flex;
+  justify-content: center;
 }
 
 #end {
-  width: 500px;
-  height: 400px;
+  width: 60%;
   border-radius: 10px;
+  padding: 2rem;
   color: white;
   background-color: #28529d;
   border: 5px solid #ffc04b;
   font-size: 20px;
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
@@ -60,30 +63,28 @@ header img {
 }
 
 #start {
-  width: 500px;
-  height: 400px;
+  width: 60%;
   border-radius: 10px;
+  padding: 2rem;
   color: white;
   background-color: #28529d;
   border: 5px solid #ffc04b;
   font-size: 20px;
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  /*display: none;*/
 }
 
 #start img {
   width: 50%;
   display: block;
   margin: 6px auto;
-  text-align: center;
 }
 
 #start p {
-  font-size: 15px;
+  font-size: large;
   font-family: 'Open sans';
 }
 
@@ -102,5 +103,36 @@ button {
 
 video {
   max-width: 90%;
+  padding: 10px;
+}
+
+#ArrowUp img,
+#ArrowLeft img,
+#ArrowDown img,
+#ArrowRight img {
+  width: 50px;
+  padding: 5px;
+}
+
+#ArrowUp img {
+  transform: rotate(270deg);
+}
+#ArrowDown img {
+  transform: rotate(90deg);
+}
+
+#ArrowLeft img {
+  transform: rotate(180deg);
+}
+
+#firstRow {
+  padding: 10px 0 10px 0;
+}
+
+#arrows {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 10px;
 }
